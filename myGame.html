@@ -41,24 +41,8 @@
 	 
       var square = {"x": 50, "y": 50, "w": 30, "h": 30, "xv": 10, "yv": 10, "i": 4};
 	  
-      var food = {
-      "position": {
-        "x": 0,
-        "y": 0
-      },
-      "size": {
-        "w": 10,
-        "h": 10
-      },
-	  
-      "drawFood": function(){
-        ctx.beginPath();
-        ctx.fillStyle="rgb(255, 0, 0)";
-        ctx.rect(food.position.x, food.position.y, food.size.w, food.size.h);
-        ctx.fill;
-		ctx.closePath();
-		drawFood();
-      }};
+      var food = {"x": 0, "y": 0, "w": 10, "h": 10};
+
 	  //======================================================
 	  
 	/*  function drawFood() {
@@ -114,8 +98,8 @@
 		
 		
 		
-		food.position.x = Math.floor((Math.random() * 500) + 1);
-		food.position.y = Math.floor((Math.random() * 500) + 1);
+		food.x = Math.round((Math.random() * 500) + 1);
+		food.y = Math.round((Math.random() * 500) + 1);
 	
 		
 		//==============================================================
@@ -149,7 +133,6 @@
                 // ... Code for Drawing the Frame ...
                 ctx.clearRect(0, 0, canvas.width, canvas.height);//maintains as a square
 
-            //food.drawFood();
 			//drawFood.push(food);
 			
             ctx.beginPath();
@@ -157,9 +140,8 @@
             ctx.fillStyle="rgb(0, 0, 255)";
             ctx.rect(square.x, square.y, square.w, square.h);
             ctx.fill();
-			ctx.closePath();
 			
-			     
+			drawFood();
             
             switch (square.i)
             {
@@ -209,7 +191,13 @@
             }
 			
 			
-        }(draw);
+        }1000/fps;
+		
+		function drawFood () {
+			ctx.fillStyle="rgb(255, 0, 0)";
+            ctx.rect(food.x, food.y, food.w, food.h);
+            ctx.fill();
+		}
 		
 		
     }

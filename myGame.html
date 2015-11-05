@@ -96,22 +96,15 @@
         var total = 0;
 		
 		
-		//===============================================================
-		
-		
-		
-		food.x = Math.round((Math.random() * 790) + 1);
-		food.y = Math.round((Math.random() * 590) + 1);
-	
-		
+		//Location of the random boxes
+		food.x = Math.round((Math.random() * 750) + 1)
+		food.y = Math.round((Math.random() * 540) + 1);
 		//==============================================================
         
         function draw(x) 
         {
 			
             window.requestAnimationFrame(draw);
-
-            
 
             now = Date.now();
             delta = now - then;
@@ -147,7 +140,7 @@
 
           ctx.fillStyle = "rgb(0,0,0)";
           ctx.font = "22px serif";
-          ctx.fillText("Food Collected: " + total, 13, 13);
+          ctx.fillText("Food Collected: " + total, 20, 20);//show user their score 
             
             switch (square.i)
             {
@@ -195,12 +188,13 @@
                     console.log("Failed to animate");
                     break;
             }
-			       
+			   //collision for food    
             if (square.x < food.x + food.w  && square.x + square.w  > food.x &&
     square.y < food.y + food.h && square.y + square.h > food.y) 
             {
               eat();
             }
+			
 			
         }1000/fps;
 		
@@ -210,14 +204,27 @@
       ctx.fill();
 		}
 		
-		//food collision
+		
 		function eat() {
 			// collision detected!
-			food.x = Math.round((Math.random() * 790) + 1);
-			food.y = Math.round((Math.random() * 590) + 1);
+			food.x = Math.round((Math.random() * 750) + 1);
+			food.y = Math.round((Math.random() * 540) + 1);
 
-      total += 1;
+			total += 1;//adding to your score
 			}
+			
+		
+		//This will restart the game when the user hits the bottom of the canvas
+		if ((square.x + 30) && (square.y + 30) >= canvas.height ) {
+            alert("Game over!");
+			document.location.reload();
+            
+        }
+		
+		
+		
+			
+	
     }
     </script>
   </body>

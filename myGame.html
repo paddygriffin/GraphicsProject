@@ -41,7 +41,7 @@
 	 
       var square = {"x": 50, "y": 50, "w": 30, "h": 30, "xv": 10, "yv": 10, "i": 4};
 	  
-      var food = {"x": 0, "y": 0, "w": 10, "h": 10};
+      var food = {"x": 50, "y": 50, "w": 30, "h": 30};
 
 	  //======================================================
 	  
@@ -92,14 +92,16 @@
         var then = Date.now();
         var interval = 1000/fps;
         var delta;
+
+        var total = 0;
 		
 		
 		//===============================================================
 		
 		
 		
-		food.x = Math.round((Math.random() * 500) + 1);
-		food.y = Math.round((Math.random() * 500) + 1);
+		food.x = Math.round((Math.random() * 790) + 1);
+		food.y = Math.round((Math.random() * 590) + 1);
 	
 		
 		//==============================================================
@@ -134,14 +136,18 @@
                 ctx.clearRect(0, 0, canvas.width, canvas.height);//maintains as a square
 
 			//drawFood.push(food);
-			
+			 
             ctx.beginPath();
             //ctx.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI);
             ctx.fillStyle="rgb(0, 0, 255)";
             ctx.rect(square.x, square.y, square.w, square.h);
             ctx.fill();
 			
-			drawFood();
+			     drawFood();
+
+          ctx.fillStyle = "rgb(0,0,0)";
+          ctx.font = "22px serif";
+          ctx.fillText("Food Collected: " + total, 13, 13);
             
             switch (square.i)
             {
@@ -189,17 +195,29 @@
                     console.log("Failed to animate");
                     break;
             }
-			
+			       
+            if (square.x < food.x + food.w  && square.x + square.w  > food.x &&
+    square.y < food.y + food.h && square.y + square.h > food.y) 
+            {
+              eat();
+            }
 			
         }1000/fps;
 		
 		function drawFood () {
 			ctx.fillStyle="rgb(255, 0, 0)";
-            ctx.rect(food.x, food.y, food.w, food.h);
-            ctx.fill();
+      ctx.rect(food.x, food.y, food.w, food.h);
+      ctx.fill();
 		}
 		
-		
+		//food collision
+		function eat() {
+			// collision detected!
+			food.x = Math.round((Math.random() * 790) + 1);
+			food.y = Math.round((Math.random() * 590) + 1);
+
+      total += 1;
+			}
     }
     </script>
   </body>

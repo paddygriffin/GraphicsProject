@@ -13,8 +13,6 @@
           display: block;
           position: absolute;
           border: 1px solid #000;
-          width: 800px;
-          height: 600px;
           top: 0;
           bottom: 0;
           left: 0; 
@@ -29,19 +27,57 @@
   <body>
         
   
-    <canvas id="canvas-for-ball"></canvas>
+    <canvas id="canvas-for-ball" width="800" height="600"></canvas>
 
     <script type="text/javascript">
+	
       // Gets a handle to the element with id canvasOne.
       var canvas = document.getElementById("canvas-for-ball");
       // Get a 2D context for the canvas.
       var ctx = canvas.getContext("2d");
       // Make the fill style red.
       ctx.fillStyle = "rgb(100, 100, 150)";
-        
-        var square = {"x": 50, "y": 50, "w": 5, "h": 5, "xv": 5, "yv": 5, "i": 4};
+	  
+	 
+      var square = {"x": 50, "y": 50, "w": 30, "h": 30, "xv": 10, "yv": 10, "i": 4};
+	  
+      var food = {
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "w": 10,
+        "h": 10
+      },
+	  
+      "drawFood": function(){
+        ctx.beginPath();
+        ctx.fillStyle="rgb(255, 0, 0)";
+        ctx.rect(food.position.x, food.position.y, food.size.w, food.size.h);
+        ctx.fill;
+		ctx.closePath();
+		drawFood();
+      }};
+	  //======================================================
+	  
+	/*  function drawFood() {
+    for (var i = 0; i < 100; i++) {
+        food.position.x = Math.floor((Math.random() * 500) + 1);
+		food.position.y = Math.floor((Math.random() * 500) + 1);
       
-        draw(square.i);
+        var circle = new Circle(100, speed, size, randomX, randomY);
+        circles.push(circle);
+    }
+    draw();
+*/
+	  
+	  
+	  
+	  //=====================================================
+
+      
+      draw(square.i);
       // Add an event listener to the keypress event.
       window.addEventListener("keydown", function(event) { 
         // Just log the event to the console.
@@ -72,10 +108,25 @@
         var then = Date.now();
         var interval = 1000/fps;
         var delta;
+		
+		
+		//===============================================================
+		
+		
+		
+		food.position.x = Math.floor((Math.random() * 500) + 1);
+		food.position.y = Math.floor((Math.random() * 500) + 1);
+	
+		
+		//==============================================================
         
         function draw(x) 
         {
+			
             window.requestAnimationFrame(draw);
+
+            
+
             now = Date.now();
             delta = now - then;
             if (delta > interval) {
@@ -96,12 +147,19 @@
                 then = now - (delta % interval);
 
                 // ... Code for Drawing the Frame ...
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+                ctx.clearRect(0, 0, canvas.width, canvas.height);//maintains as a square
+
+            //food.drawFood();
+			//drawFood.push(food);
+			
             ctx.beginPath();
             //ctx.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI);
+            ctx.fillStyle="rgb(0, 0, 255)";
             ctx.rect(square.x, square.y, square.w, square.h);
             ctx.fill();
+			ctx.closePath();
+			
+			     
             
             switch (square.i)
             {
@@ -149,7 +207,11 @@
                     console.log("Failed to animate");
                     break;
             }
+			
+			
         }(draw);
+		
+		
     }
     </script>
   </body>

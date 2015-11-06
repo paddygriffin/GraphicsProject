@@ -38,12 +38,12 @@
       // Make the fill style red.
       ctx.fillStyle = "rgb(100, 100, 150)";
 	  
-	 
+	 //user object
       var square = {"x": 50, "y": 50, "w": 30, "h": 30, "xv": 10, "yv": 10, "i": 4};
-	  
+	  //food to collect
       var food = {"x": 50, "y": 50, "w": 30, "h": 30};
 
-      draw(square.i);
+      draw(square.i);//draw function draws square
       // Add an event listener to the keypress event.
       window.addEventListener("keydown", function(event) { 
         // Just log the event to the console.
@@ -80,39 +80,38 @@
 		
 		//Location of the random boxes
 		food.x = Math.round((Math.random() * 750) + 1)
-		food.y = Math.round((Math.random() * 540) + 1);
+		food.y = Math.round((Math.random() * 500) + 1);
 		//==============================================================
         
         function draw(x) 
         {
 			
-            window.requestAnimationFrame(draw);
+            window.requestAnimationFrame(draw);/*the browser is told that you want to execute a specific 
+			animation and requests that the browser call a certain function in this case we call the draw function*/
 
             now = Date.now();
             delta = now - then;
             if (delta > interval) {
            
 
-                then = now - (delta % interval);
+            then = now - (delta % interval);
 
-                // ... Code for Drawing the Frame ...
-                ctx.clearRect(0, 0, canvas.width, canvas.height);//maintains as a square
-
-			//drawFood.push(food);
-			 
+            // ... Code for Drawing the Frame ...
+            ctx.clearRect(0, 0, canvas.width, canvas.height);//maintains as a square
+ 
             ctx.beginPath();
-            //ctx.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI);
             ctx.fillStyle="rgb(255, 0, 0)";
             ctx.rect(square.x, square.y, square.w, square.h);
             ctx.fill();
 			
-			     drawFood();
+			drawFood();
 
-          ctx.fillStyle = "rgb(255,0,0)";
-          ctx.font = "22px serif";
-          ctx.fillText("Food Collected: " + total, 20, 20);//show user their score 
+            ctx.fillStyle = "rgb(255,0,0)";
+            ctx.font = "22px serif";
+            ctx.fillText("Food Collected: " + total, 20, 20);//show user their score 
             
-            /*Console.log is used to log any errors to the console*/    
+            /*------Console.log is used to log any errors to the console
+			This switch statement tells the console when out of bounds--------*/    
                 
             switch (square.i)
             {
@@ -162,13 +161,12 @@
             }
 			   //collision for food    
             if (square.x < food.x + food.w  && square.x + square.w  > food.x &&
-    square.y < food.y + food.h && square.y + square.h > food.y) 
+			 square.y < food.y + food.h && square.y + square.h > food.y) 
             {
-              eat();
+              eat();//calling eat function
         
             }
-			
-			
+		
         }1000/fps;
 		
             //drawing food 
@@ -181,16 +179,16 @@
 		//eat function
 		function eat() {
 			// collision detected!
-			food.x = Math.round((Math.random() * 750) + 1);
-			food.y = Math.round((Math.random() * 540) + 1);
+			food.x = Math.round((Math.random() * 750) + 1);//generating a random local for food within canvas
+			food.y = Math.round((Math.random() * 500) + 1);
             
 			total += 1;//adding to your score
 			}
 
 
-	     //this code is to restart the game when the square hits the canvas
+	     //this code is to restart the game when the square hits the canvas I used the code from my switch statement
 	   if (square.y + square.h >= canvas.height || (square.x + square.w >= canvas.width) || (square.x <= 0) || (square.y <= 0)) {
-			document.location.reload();   
+			document.location.reload();//reloads the game    
 			   
         }
 

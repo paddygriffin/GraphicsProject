@@ -21,12 +21,12 @@
           
       }
     </style>
+      <h3>Canvas Game - collect as much as possible - Dont touch the bottom of the canvas</h3>
 
   </head>
 
   <body>
-        
-  
+       
     <canvas id="canvas-for-ball" width="800" height="600"></canvas>
 
     <script type="text/javascript">
@@ -43,24 +43,6 @@
 	  
       var food = {"x": 50, "y": 50, "w": 30, "h": 30};
 
-	  //======================================================
-	  
-	/*  function drawFood() {
-    for (var i = 0; i < 100; i++) {
-        food.position.x = Math.floor((Math.random() * 500) + 1);
-		food.position.y = Math.floor((Math.random() * 500) + 1);
-      
-        var circle = new Circle(100, speed, size, randomX, randomY);
-        circles.push(circle);
-    }
-    draw();
-*/
-	  
-	  
-	  
-	  //=====================================================
-
-      
       draw(square.i);
       // Add an event listener to the keypress event.
       window.addEventListener("keydown", function(event) { 
@@ -90,7 +72,7 @@
         var fps = 30;//speed
         var now;
         var then = Date.now();
-        var interval = 1000/fps;
+        var interval = 550/fps;//controlling the frame rate
         var delta;
 
         var total = 0;
@@ -109,19 +91,7 @@
             now = Date.now();
             delta = now - then;
             if (delta > interval) {
-                // update time stuffs
-
-                // Just `then = now` is not enough.
-                // Lets say we set fps at 10 which means
-                // each frame must take 100ms
-                // Now frame executes in 16ms (60fps) so
-                // the loop iterates 7 times (16*7 = 112ms) until
-                // delta > interval === true
-                // Eventually this lowers down the FPS as
-                // 112*10 = 1120ms (NOT 1000ms).
-                // So we have to get rid of that extra 12ms
-                // by subtracting delta (112) % interval (100).
-                // Hope that makes sense.
+           
 
                 then = now - (delta % interval);
 
@@ -132,16 +102,18 @@
 			 
             ctx.beginPath();
             //ctx.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI);
-            ctx.fillStyle="rgb(0, 0, 255)";
+            ctx.fillStyle="rgb(255, 0, 0)";
             ctx.rect(square.x, square.y, square.w, square.h);
             ctx.fill();
 			
 			     drawFood();
 
-          ctx.fillStyle = "rgb(0,0,0)";
+          ctx.fillStyle = "rgb(255,0,0)";
           ctx.font = "22px serif";
           ctx.fillText("Food Collected: " + total, 20, 20);//show user their score 
             
+            /*Console.log is used to log any errors to the console*/    
+                
             switch (square.i)
             {
                 case 1:
@@ -193,37 +165,38 @@
     square.y < food.y + food.h && square.y + square.h > food.y) 
             {
               eat();
+        
             }
 			
 			
         }1000/fps;
 		
+            //drawing food 
 		function drawFood () {
 			ctx.fillStyle="rgb(255, 0, 0)";
-      ctx.rect(food.x, food.y, food.w, food.h);
-      ctx.fill();
+            ctx.rect(food.x, food.y, food.w, food.h);
+            ctx.fill();
 		}
 		
-		
+		//eat function
 		function eat() {
 			// collision detected!
 			food.x = Math.round((Math.random() * 750) + 1);
 			food.y = Math.round((Math.random() * 540) + 1);
-
+            
 			total += 1;//adding to your score
 			}
-			
-		
-		//This will restart the game when the user hits the bottom of the canvas
-		if ((square.x + 30) && (square.y + 30) >= canvas.height ) {
-            alert("Game over!");
-			document.location.reload();
-            
+
+
+	     //this code is to restart the game when the square hits the canvas
+	   if (square.y + square.h >= canvas.height || (square.x + square.w >= canvas.width) || (square.x <= 0) || (square.y <= 0)) {
+			document.location.reload();   
+			   
         }
+
 		
 		
-		
-			
+	
 	
     }
     </script>
